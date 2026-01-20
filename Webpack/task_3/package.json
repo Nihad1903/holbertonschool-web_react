@@ -4,9 +4,9 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "webpack-dev-server --config webpack.config.js --host localhost --port 8564 --open",
-    "build": "webpack"
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start-dev": "webpack-dev-server --open",
+  "build": "webpack"
   },
   "keywords": [],
   "author": "",
