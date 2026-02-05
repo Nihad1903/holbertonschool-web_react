@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
@@ -59,6 +59,7 @@ const App = () => {
         );
         setNotifications(data);
       } catch (err) {
+        // eslint-disable-next-line no-undef
         if (process.env.NODE_ENV === 'development') {
           console.error('Failed to fetch notifications:', err);
         }
@@ -75,6 +76,7 @@ const App = () => {
         const res = await axios.get('/courses.json');
         setCoursesList(res.data);
       } catch (err) {
+        // eslint-disable-next-line no-undef
         if (process.env.NODE_ENV === 'development') {
           console.error('Failed to fetch courses:', err);
         }

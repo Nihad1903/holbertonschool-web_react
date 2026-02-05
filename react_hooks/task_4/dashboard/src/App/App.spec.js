@@ -41,37 +41,43 @@ describe('App component', () => {
 });
 
 describe('App notification drawer behavior', () => {
-  test('displays drawer when clicking on "Your notifications"', () => {
+  test('drawer is displayed by default', () => {
     render(<App />);
-    fireEvent.click(screen.getByText(/your notifications/i));
     expect(screen.getByText(/Here is the list of notifications/i)).toBeInTheDocument();
   });
 
   test('hides drawer when clicking on close button', () => {
     render(<App />);
-    fireEvent.click(screen.getByText(/your notifications/i));
     const closeBtn = screen.getByRole('button', { name: /close/i });
     fireEvent.click(closeBtn);
     expect(screen.queryByText(/Here is the list of notifications/i)).not.toBeInTheDocument();
+  });
+
+  test('shows drawer when clicking on "Your notifications" after hiding', () => {
+    render(<App />);
+    // First hide the drawer
+    const closeBtn = screen.getByRole('button', { name: /close/i });
+    fireEvent.click(closeBtn);
+    // Then show it again
+    fireEvent.click(screen.getByText(/your notifications/i));
+    expect(screen.getByText(/Here is the list of notifications/i)).toBeInTheDocument();
   });
 
   test('markNotificationAsRead removes the notification and logs it', () => {
     const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     render(<App />);
 
-    fireEvent.click(screen.getByText(/your notifications/i));
-
-    // Vérifie que la notification 1 est bien là
+    // Since drawer is open by default, we can directly check for notifications
     const notif = screen.getByText(/New course available/i);
     expect(notif).toBeInTheDocument();
 
-    // Simule un clic sur le li pour marquer comme lu (selon implémentation réelle)
+    // Simulate a click on the notification to mark as read
     fireEvent.click(notif);
 
-    // Doit disparaître
+    // Should disappear
     expect(screen.queryByText(/New course available/i)).not.toBeInTheDocument();
 
-    // Vérifie le console.log
+    // Verify the console.log
     expect(logSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');
     logSpy.mockRestore();
   });
