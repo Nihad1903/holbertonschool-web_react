@@ -46,8 +46,8 @@ const App = () => {
     setNotifications((prev) => prev.filter((notif) => notif.id !== id));
   }, []);
 
-  const handleDisplayDrawer = () => setDisplayDrawer(true);
-  const handleHideDrawer = () => setDisplayDrawer(false);
+  const handleDisplayDrawer = useCallback(() => setDisplayDrawer(true), []);
+  const handleHideDrawer = useCallback(() => setDisplayDrawer(false), []);
 
   // Fetch notifications on initial mount
   useEffect(() => {
