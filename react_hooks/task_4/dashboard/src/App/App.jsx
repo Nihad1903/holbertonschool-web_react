@@ -10,16 +10,20 @@ import CourseList from '../CourseList/CourseList';
 import { getLatestNotification } from '../utils/utils';
 import { StyleSheet, css } from 'aphrodite';
 import AppContext from '../Context/context';
+import { user as contextUser } from '../Context/context';
+
+// Initial notifications list
+const notificationsList = [
+  { id: 1, type: 'default', value: 'New course available' },
+  { id: 2, type: 'urgent', value: 'New resume available' },
+  { id: 3, type: 'urgent', html: { __html: getLatestNotification() } }
+];
 
 const App = () => {
-  const [displayDrawer, setDisplayDrawer] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  const [displayDrawer, setDisplayDrawer] = useState(true);
+  const [notifications, setNotifications] = useState(notificationsList);
   const [coursesList, setCoursesList] = useState([]);
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-    isLoggedIn: false,
-  });
+  const [user, setUser] = useState(contextUser);
 
   const logIn = useCallback((email, password) => {
     setUser({
