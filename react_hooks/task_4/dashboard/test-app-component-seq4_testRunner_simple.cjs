@@ -1,5 +1,3 @@
-// Test runner for App component - testing function reference stability
-
 const fs = require('fs');
 const path = require('path');
 
